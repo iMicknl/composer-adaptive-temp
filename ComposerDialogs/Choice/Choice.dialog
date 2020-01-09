@@ -1,0 +1,79 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "Choice",
+    "id": "304099"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.ChoiceInput",
+          "$designer": {
+            "id": "257128",
+            "name": "Multiple choice"
+          },
+          "prompt": "@{bfdprompt-257128()}",
+          "maxTurnCount": 999999,
+          "property": "user.choice",
+          "alwaysPrompt": true,
+          "allowInterruptions": "false",
+          "outputFormat": "value",
+          "choices": [
+            {
+              "value": "AdaptiveCard"
+            }
+          ],
+          "appendChoices": "true",
+          "defaultLocale": "en-us",
+          "style": "List",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          },
+          "recognizerOptions": {
+            "noValue": false
+          }
+        },
+        {
+          "$type": "Microsoft.SwitchCondition",
+          "$designer": {
+            "id": "796004",
+            "name": "Branch: switch (multiple options)"
+          },
+          "condition": "user.choice",
+          "cases": [
+            {
+              "value": "AdaptiveCard",
+              "actions": [
+                {
+                  "$type": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "827802",
+                    "name": "Send a response"
+                  },
+                  "activity": "@{bfdactivity-827802()}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.EndDialog",
+          "$designer": {
+            "id": "406897",
+            "name": "End this dialog"
+          }
+        }
+      ]
+    }
+  ]
+}

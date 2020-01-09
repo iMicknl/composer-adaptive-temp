@@ -1,0 +1,72 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "937757",
+    "name": "RespondingWithCardsSample-0"
+  },
+  "autoEndDialog": false,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$type": "Microsoft.OnUnknownIntent",
+      "$designer": {
+        "id": "392502"
+      }
+    },
+    {
+      "$type": "Microsoft.OnConversationUpdateActivity",
+      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "729500"
+          },
+          "activity": "@{bfdactivity-729500()}"
+        }
+      ],
+      "$designer": {
+        "id": "109137"
+      }
+    },
+    {
+      "$type": "Microsoft.OnActivity",
+      "$designer": {
+        "id": "800580"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "041155",
+            "name": "Branch: if/else"
+          },
+          "condition": "turn.activity.value && !turn.activity.text",
+          "actions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "774441",
+                "name": "Send a response"
+              },
+              "activity": "@{bfdactivity-774441()}"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.BeginDialog",
+              "$designer": {
+                "id": "839620",
+                "name": "Begin a new dialog"
+              },
+              "dialog": "Choice"
+            }
+          ]
+        }
+      ],
+      "type": "message"
+    }
+  ],
+  "generator": "common.lg",
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
+}
